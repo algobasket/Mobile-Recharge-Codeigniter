@@ -214,7 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li class="list-group-item">FAMILY<br>
                     Pay for your family and earn Cashback upto ₹300 & additional Cashback of up to Rs. 50 on Paying through Paytm Payments Bank savings a/c.
                     </li>
-                    
+
                     </ul>
 
                </div>
@@ -375,8 +375,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $('#mobileNumber').keyup(function(){
          if(this.value.length > 5 || this.value.length == 5){
            $('#nav-profile-tab').show(function(){ $(this).click();});
-           // $('#nav-profile').addClass('active show').show();
-           $.post('<?php echo base_url();?>Welcome/getOperatorPlanofferAjax',{'cir' : "",'type':'','max':'','amt':''},function(data,status){
+           // $('#nav-profile').addClass('active show').show();   
+           $.post('<?php echo base_url();?>Welcome/getOperatorPlanofferAjax',{'mobileNumber':this.value,'cir' : "",'type':'','max':'','amt':''},function(data,status){
              $('#updatePlanOffer').html(data).show();
              console.log(data);
            })

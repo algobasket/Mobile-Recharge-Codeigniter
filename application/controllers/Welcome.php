@@ -123,9 +123,25 @@ class Welcome extends CI_Controller {
      echo"No offer details available for this category";
      }
 	}
-
+  public function getOperatorAndCircle($mobileNumber){
+    $ch = curl_init();
+    $timeout = 30; // set to zero for no timeout
+    $myurl = "https://api.datayuge.com/v1/lookup/" .$mobileNumber;
+    curl_setopt ($ch, CURLOPT_URL, $myurl);
+    curl_setopt ($ch, CURLOPT_HEADER, 0);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $jsonxx = curl_exec($ch);
+    $curl_error = curl_errno($ch);
+    curl_close($ch);
+    return $jsonxx;
+  }
   public function getOperatorPlanofferAjax(){
-    $ch = curl_init();  
+    $api = $this->getOperatorAndCircle($this->input->post('mobileNumber'));
+    $operator = $api->operator;
+    $circle = $api->circle;
+    print_r($api);
+    $ch = curl_init();
     $timeout = 30; // set to zero for no timeout
     $myurl = "https://joloapi.com/api/findplan.php?userid=demo&key=000000&opt=28&cir=1&typ=TUP&max=&amt=";
     curl_setopt ($ch, CURLOPT_URL, $myurl);
