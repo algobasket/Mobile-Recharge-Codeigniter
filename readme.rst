@@ -1,9 +1,9 @@
 ###################
-What is Mobile Recharge Codeigniter
+What is Mobile Recharge v 1.0(Build in Codeigniter)
 ###################
 
-Mobile Recharge Codeigniter is an Application is the script for online recharge system using thirdparty recharge apis
-like JOLO API , FreeRechargeAPI and many other .
+Mobile Recharge v1.0 is an Application for online recharge system using thirdparty recharge apis
+like JOLO API , FreeRechargeAPI and many other .  
 
 *******************
 Release Information
