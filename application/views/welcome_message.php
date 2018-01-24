@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Online Mobile Recharge</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			 </nav>
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" style="margin-top:15px">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="#">Utilities</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
           More
         </button>
@@ -62,29 +62,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Mobile <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Electricity</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Landline</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
             </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#">Fees</a>
+           <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /></a>
             </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#">Gold</a>
+           <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /></a>
             </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#">Metro</a>
+           <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" /></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
               <div class="dropdown-menu" aria-labelledby="dropdown09">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
+                  <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
               </div>
             </li>
           </ul>
@@ -100,36 +107,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <main role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Mobile Recharge or Bill Payment</h1>
-            <p>Tell us your number and we will figure out the rest</p>
-						<?php echo form_open('welcome');?>
-					  <p>Prepaid <input type="radio" name="prepaid_postpaid" value="prepaid" /> &nbsp;&nbsp;&nbsp;&nbsp;Postpaid <input type="radio" name="prepaid_postpaid" value="postpaid" /></p>
-            <p>
-							<div class="row">
+      <div class="jumbotron" style="height:200px"></div>
 
-								<div class="col-6 col-md-3">Mobile Number<input type="text" name="rechargeNumber" class="form-control" placeholder="Your Mobile Number" required/></div>
-				        <div class="col-6 col-md-3">Operator<select name="utilityOperatorId" class="form-control" >
-                    <option>Your Operator</option>
-                     <?php foreach($operators as $operatorName => $operatorCode): ?>
-											 <option value="<?php echo $operatorCode;?>"><?php echo $operatorName;?></option>
-										 <?php endforeach;?>
-								</select></div>
-								<div class="col-6 col-md-3">Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><a href="#">(Browser all plans)</a></small><input type="text" name="rechargeAmount" class="form-control" placeholder="Enter Amount" required/></div>
+      <div class="container" style="margin-top:-150px">
+        <div class="row mb-2">
+          <div class="col-md-12">
+       <div class="card flex-md-row mb-4 box-shadow h-md-250">
+         <div class="card-body d-flex flex-column align-items-start">
+           <h4>Mobile Recharge or Bill Payment</h4>
+             <p>Tell us your number and we will figure out the rest</p>
+            <?php echo form_open('welcome');?>
+            <p>Prepaid <input type="radio" name="prepaid_postpaid" value="prepaid" onclick="document.getElementById('prepaid_btn').style.display='block';document.getElementById('postpaid_btn').style.display='none'" checked /> &nbsp;&nbsp;&nbsp;&nbsp;Postpaid <input type="radio" name="prepaid_postpaid" value="postpaid" onclick="document.getElementById('prepaid_btn').style.display='none';document.getElementById('postpaid_btn').style.display='block'"/></p>
+             <p>
+              <div class="row">
 
-								<div class="col-6 col-md-3">
-                 <input type="radio" name="prepaid" /> Fast Forward
-									<input type="submit" class="btn btn-primary btn-lg" name="submit_recharge" style="background-color:#eb2026 !important" value="Proceed To Recharge &raquo;"/>
-                    <br><small>Instant payment from your Paytm balance</small>
-								</div>
-				      </div>
+                <div class="col-6 col-md-3">Mobile Number<input type="text" name="rechargeNumber" class="form-control" placeholder="Your Mobile Number" required/></div>
+                <div class="col-6 col-md-3">Operator<select name="utilityOperatorId" class="form-control" >
+                     <option>Your Operator</option>
+                      <?php foreach($operators as $operatorName => $operatorCode): ?>
+                       <option value="<?php echo $operatorCode;?>"><?php echo $operatorName;?></option>
+                     <?php endforeach;?>
+                </select></div>
+                <div class="col-6 col-md-3">Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><a href="#">(Browser all plans)</a></small><input type="text" name="rechargeAmount" class="form-control" placeholder="Enter Amount" required/></div>
 
-						</p>
-						<?php echo form_close();?>
-        </div>
+                <div class="col-6 col-md-3" id="prepaid_btn">
+                  <input type="radio" name="prepaid" /> Fast Forward
+                  <input type="submit" class="btn btn-primary btn-lg" name="submit_recharge_prepaid" style="background-color:#eb2026 !important" value="Proceed To Recharge &raquo;"/>
+                     <br><small>Instant payment from your Paytm balance</small>
+                </div>
+                <div class="col-6 col-md-3" id="postpaid_btn" style="display:none">
+                  <input type="radio" name="prepaid" /> Fast Forward
+                  <input type="submit" class="btn btn-primary btn-lg" name="submit_recharge_postpaid" style="background-color:#eb2026 !important" value="Proceed To Bill Pay &raquo;"/>
+                     <br><small>Instant payment from your Paytm balance</small>
+                </div>
+              </div>
+
+            </p>
+            <?php echo form_close();?>
+         </div>
+       </div>
+
+     </div>
+       </div>
       </div>
-
 
     </main>
 

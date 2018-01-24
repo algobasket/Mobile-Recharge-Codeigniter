@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Online Mobile Recharge</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			 </nav>
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" style="margin-top:15px">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="#">Utilities</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
           More
         </button>
@@ -62,29 +62,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Mobile <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Electricity</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Landline</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
             </li>
 						<li class="nav-item">
-              <a class="nav-link" href="#">Fees</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /></a>
             </li>
 						<li class="nav-item">
-              <a class="nav-link" href="#">Gold</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /></a>
             </li>
 						<li class="nav-item">
-              <a class="nav-link" href="#">Metro</a>
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" /></a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
               <div class="dropdown-menu" aria-labelledby="dropdown09">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
+                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
+                  <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
               </div>
             </li>
           </ul>
@@ -113,19 +120,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            </h6>
            </strong>
            <?php echo form_open('welcome');?>
-           <div class="mb-1 text-muted">Prepaid <input type="radio" name="prepaid_postpaid" value="prepaid" /> &nbsp;&nbsp;&nbsp;&nbsp;Postpaid <input type="radio" name="prepaid_postpaid" value="postpaid" /></div>
+           <div class="mb-1 text-muted">Prepaid <input type="radio" name="prepaid_postpaid" value="prepaid" onclick="document.getElementById('prepaid_btn').style.display='block';document.getElementById('postpaid_btn').style.display='none'" checked /> &nbsp;&nbsp;&nbsp;&nbsp;Postpaid <input type="radio" name="prepaid_postpaid" value="postpaid" onclick="document.getElementById('prepaid_btn').style.display='none';document.getElementById('postpaid_btn').style.display='block'" /></div>
            <div class="mb-1 text-muted">
 
                <div class="mb-3">
                 <label for="email">Mobile Number</label>
-                 <input type="text" name="rechargeNumber" class="form-control" placeholder="Your Mobile Number" required/>
+                 <input type="text" name="rechargeNumber" class="form-control" placeholder="Your Mobile Number" id="mobileNumber" required/>
                 <div class="invalid-feedback">
                   Please enter mobile number.
                 </div>
               </div>
               <div class="mb-3">
                <label for="email">Operator</label>
-               <select name="utilityOperatorId" class="form-control" >
+               <select name="utilityOperatorId" class="form-control" onchange="document.getElementById('circle_change').style.display='block'">
                    <option>Your Operator</option>
                     <?php foreach($operators as $operatorName => $operatorCode): ?>
                       <option value="<?php echo $operatorCode;?>"><?php echo $operatorName;?></option>
@@ -135,6 +142,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 Please enter an operator
                </div>
              </div>
+             <div class="mb-3" style="display:none" id="circle_change">
+              <label for="email">Circle</label>
+              <select name="circleId" class="form-control" >
+                  <option>Your Circle</option>
+                   <?php foreach($circles as $circleName => $circleCode): ?>
+                     <option value="<?php echo $circleCode;?>"><?php echo $circleName;?></option>
+                   <?php endforeach;?>
+              </select>
+              <div class="invalid-feedback">
+               Please enter an circle
+              </div>
+            </div>
              <div class="mb-3">
               <label for="email">Amount <span class="text-muted">(Browser all plans)</span></label>
                <input type="text" name="rechargeAmount" class="form-control" placeholder="Enter Amount" required/>
@@ -142,7 +161,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               Please enter an amount
               </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" id="prepaid_btn">
              <label for="email"><input type="radio" name="prepaid" /> Fast Forward</span></label>
              <input type="submit" class="btn btn-primary btn-lg" name="submit_recharge" style="background-color:#eb2026 !important" value="Proceed To Recharge &raquo;"/>
                <br><small>Instant payment from your Paytm balance</small>
@@ -150,6 +169,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              Please enter an amount
              </div>
            </div>
+           <div class="mb-3" id="postpaid_btn" style="display:none">
+            <label for="email"><input type="radio" name="prepaid" /> Fast Forward</span></label>
+            <input type="submit" class="btn btn-primary btn-lg" name="submit_recharge" style="background-color:#eb2026 !important" value="Proceed To Pay Bill &raquo;"/>
+              <br><small>Instant payment from your Paytm balance</small>
+            <div class="invalid-feedback">
+            Please enter an amount
+            </div>
+          </div>
            </div>
 
            <?php echo form_close();?>
@@ -165,12 +192,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            <nav>
              <div class="nav nav-tabs" id="nav-tab" role="tablist">
                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Promo Codes</a>
-               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Browse Plans</a>
+               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" style="display:none">Browse Plans</a>
 
              </div>
            </nav>
            <div class="tab-content" id="nav-tabContent">
              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                  <br>
+                 <div class="col-12">
+                   <ul class="list-group">
+                    <li class="list-group-item">FAMILY<br>
+                    Pay for your family and earn Cashback upto ₹300 & additional Cashback of up to Rs. 50 on Paying through Paytm Payments Bank savings a/c.
+                    </li>
+                    <li class="list-group-item">FAMILY<br>
+                    Pay for your family and earn Cashback upto ₹300 & additional Cashback of up to Rs. 50 on Paying through Paytm Payments Bank savings a/c.
+                    </li>
+                    <li class="list-group-item">FAMILY<br>
+                    Pay for your family and earn Cashback upto ₹300 & additional Cashback of up to Rs. 50 on Paying through Paytm Payments Bank savings a/c.
+                    </li>
+                    <li class="list-group-item">FAMILY<br>
+                    Pay for your family and earn Cashback upto ₹300 & additional Cashback of up to Rs. 50 on Paying through Paytm Payments Bank savings a/c.
+                    </li>
+                    
+                    </ul>
+
+               </div>
 
              </div>
              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -198,7 +245,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="updatePlanOffer">
                           <tr>
                             <th>85</th>
                             <td>7 days</td>
@@ -318,9 +365,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
     <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('#mobileNumber').keyup(function(){
+         if(this.value.length > 5 || this.value.length == 5){
+           $('#nav-profile-tab').show(function(){ $(this).click();});
+           // $('#nav-profile').addClass('active show').show();
+           $.post('<?php echo base_url();?>Welcome/getOperatorPlanofferAjax',{'cir' : "",'type':'','max':'','amt':''},function(data,status){
+             $('#updatePlanOffer').html(data).show();
+             console.log(data);
+           })
+        }
+      });
+    });
+    </script>
   </body>
 </html>

@@ -12,13 +12,14 @@ class Welcome extends CI_Controller {
 	{
 		if($this->input->post('submit_recharge')){
         $output = $this->rechargeApi(
-					$rechargeNumber    = $this->input->post('rechargeNumber'), 
+					$rechargeNumber    = $this->input->post('rechargeNumber'),
 					$rechargeAmount    = $this->input->post('rechargeAmount'),
 					$utilityOperatorId = $this->input->post('utilityOperatorId'),
 					$remark            = 'Test');
 					echo $output;
 		}
     $data['operators'] = $this->operators();
+    $data['circles']   = $this->circles();
 		$this->load->view('welcome_message',$data);
 	}
 
@@ -32,7 +33,9 @@ class Welcome extends CI_Controller {
 				 $remark            = 'Test');
 				 echo $output;
 	     }
+      $data['circles']   = $this->circles();
 		  $data['operators'] = $this->operators();
+
 		  $this->load->view('recharge',$data);
 	}
 
@@ -85,8 +88,61 @@ class Welcome extends CI_Controller {
 			);
 	}
 
-	public function getOperatorId_CircleId_Type(){
+  public function circles(){
+     return array(
+       'Andhra_Pradesh' => 5,
+       'Assam' => 19,
+       'Bihar_Jharkhand' => 17,
+       'Chennai' => 23,
+       'Delhi_NCR' => 1,
+       'Gujarat' => 8,
+       'Haryana' => 16,
+       'Himachal_Pradesh' => 21,
+       'Jammu_Kashmir' => 22,
+       'Karnataka' => 7,
+       'Kerala' => 14,
+       'Kolkata' => 3
+     );
+  }
 
+	public function getOperatorPlanoffer(){
+    $ch = curl_init();
+    $timeout = 30; // set to zero for no timeout
+    $myurl = "https://joloapi.com/api/findplan.php?userid=demo&key=000000&opt=28&cir=1&typ=TUP&max=&amt=";
+    curl_setopt ($ch, CURLOPT_URL, $myurl);
+    curl_setopt ($ch, CURLOPT_HEADER, 0);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $jsonxx = curl_exec($ch);
+    $curl_error = curl_errno($ch);
+    curl_close($ch);
+    $someArray = json_decode($jsonxx, true);
+    if (count($someArray) > 0) {
+       return $someArray;
+     }else{
+     echo"No offer details available for this category";
+     }
+	}
+
+  public function getOperatorPlanofferAjax(){
+    $ch = curl_init();  
+    $timeout = 30; // set to zero for no timeout
+    $myurl = "https://joloapi.com/api/findplan.php?userid=demo&key=000000&opt=28&cir=1&typ=TUP&max=&amt=";
+    curl_setopt ($ch, CURLOPT_URL, $myurl);
+    curl_setopt ($ch, CURLOPT_HEADER, 0);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $jsonxx = curl_exec($ch);
+    $curl_error = curl_errno($ch);
+    curl_close($ch);
+    $someArray = json_decode($jsonxx, true);
+    if (count($someArray) > 0) {
+      foreach ($someArray as $key => $value) {
+       echo " <tr><td>" .$value["Validity"]. "</td> <td>" .$value["Amount"] . "</td> <td>" .$value["Detail"]. "</td> </tr>";
+       }
+     }else{
+     echo"No offer details available for this category";
+     }
 	}
 
 
