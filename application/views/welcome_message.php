@@ -195,31 +195,33 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
 
         <div class="collapse navbar-collapse" id="navbarsExample09">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /></a>
+            <li class="nav-item active" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> <small>Movies</small></a>
+
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
+            <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /><small>Train</small></a>
+
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
+            <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /><small>Bus</small></a>
+
             </li>
-           <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /></a>
+           <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /><small>Hotel</small></a>
+
             </li>
-           <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /></a>
+           <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /> <small>Flight</small></a>
+
             </li>
-           <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /></a>
+            <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" />  <small>Bus</small></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /></a>
+            <li class="nav-item" style="width:80px">
+              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" />  <small>Datacard</small></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" /></a>
-            </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
               <div class="dropdown-menu" aria-labelledby="dropdown09">
                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
@@ -227,13 +229,14 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
                   <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
               </div>
-            </li>
+            </li> -->
           </ul>
 
           <!-- <a class="form-inline my-2 my-md-0">
             Paytm Balance Rs 1000
           </a> -->
         </div>
+
       </nav>
 
 		</div>
@@ -290,35 +293,64 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
 
 		<div class="container">
      <h3>Mobile Recharge and Bill Payments</h3>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" style="margin-top:15px">
+         <div class="collapse navbar-collapse">
+           <ul class="navbar-nav mr-auto">
+             <li class="nav-item active" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /> <small>Mobile</small></a>
 
-		 <div class="nav-scroller py-1 mb-2">
-			 <div class="nav d-flex justify-content-between">
-          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /></a>
-          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
-          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
-          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /></a>
-				 <!-- <a class="p-2 text-muted" href="#">Movie</a>
-				 <a class="p-2 text-muted" href="#">Trains</a>
-				 <a class="p-2 text-muted" href="#">Bus</a>
-				 <a class="p-2 text-muted" href="#">Deals</a>
-				 <a class="p-2 text-muted" href="#">Flights</a>
-				 <a class="p-2 text-muted" href="#">Hotels</a>
-				 <a class="p-2 text-muted" href="#">Events</a>
-				 <a class="p-2 text-muted" href="#">Gift Cards</a>
-				 <a class="p-2 text-muted" href="#">Cars & Bikes</a>
-				 <a class="p-2 text-muted" href="#">Amusement Parks</a>
-				 <a class="p-2 text-muted" href="#">International Flights</a>
-				 <a class="p-2 text-muted" href="#">Tickets</a> -->
-			 </div>
-		 </div>
+             </li>
+             <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /><small>Electricity</small></a>
 
-		 <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+             </li>
+             <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /><small>Landline</small></a>
+
+             </li>
+            <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /><small>Hotel</small></a>
+
+             </li>
+            <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /> <small>Broadband</small></a>
+
+             </li>
+            <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" />  <small>Flight</small></a>
+
+             </li>
+             <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" />  <small>Bus</small></a>
+             </li>
+             <li class="nav-item" style="width:80px">
+               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" />  <small>Datacard</small></a>
+             </li>
+             <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
+               <div class="dropdown-menu" aria-labelledby="dropdown09">
+                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
+                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
+                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
+                   <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
+               </div>
+             </li>
+           </ul>
+
+           <!-- <a class="form-inline my-2 my-md-0">
+             Paytm Balance Rs 1000
+           </a> -->
+         </div>
+
+       </nav>
+
+		 <!-- <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
 			 <div class="col-md-6 px-0">
 				 <h1 class="display-4 font-italic">Get upto <br>300 Rs Cashback</h1>
 				 <p class="lead my-3">Recharge or Pay Bills for Your Family Members</p>
 				 <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">PROMOCODE : GOLD500</a></p>
 			 </div>
-		 </div>
+		 </div> -->
 
 		</div>
 
