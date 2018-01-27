@@ -18,11 +18,146 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    <style>
+    @media (min-width: 768px) {
+
+     /* show 3 items */
+     .carousel-inner .active,
+     .carousel-inner .active + .carousel-item,
+     .carousel-inner .active + .carousel-item + .carousel-item,
+     .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item  {
+         display: block;
+     }
+
+     .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+     .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+     .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item,
+     .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+         transition: none;
+     }
+
+     .carousel-inner .carousel-item-next,
+     .carousel-inner .carousel-item-prev {
+       position: relative;
+       transform: translate3d(0, 0, 0);
+     }
+
+     .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+         position: absolute;
+         top: 0;
+         right: -25%;
+         z-index: -1;
+         display: block;
+         visibility: visible;
+     }
+
+     /* left or forward direction */
+     .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+     .carousel-item-next.carousel-item-left + .carousel-item,
+     .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+     .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item,
+     .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+         position: relative;
+         transform: translate3d(-100%, 0, 0);
+         visibility: visible;
+     }
+
+     /* farthest right hidden item must be abso position for animations */
+     .carousel-inner .carousel-item-prev.carousel-item-right {
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+         display: block;
+         visibility: visible;
+     }
+
+     /* right or prev direction */
+     .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+     .carousel-item-prev.carousel-item-right + .carousel-item,
+     .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+     .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item,
+     .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+         position: relative;
+         transform: translate3d(100%, 0, 0);
+         visibility: visible;
+         display: block;
+         visibility: visible;
+     }
+
+ }
+
+  /* Bootstrap Lightbox using Modal */
+
+ #profile-grid { overflow: auto; white-space: normal; }
+ #profile-grid .profile { padding-bottom: 40px; }
+ #profile-grid .panel { padding: 0 }
+ #profile-grid .panel-body { padding: 15px }
+ #profile-grid .profile-name { font-weight: bold; }
+ #profile-grid .thumbnail {margin-bottom:6px;}
+ #profile-grid .panel-thumbnail { overflow: hidden; }
+ #profile-grid .img-rounded { border-radius: 4px 4px 0 0;}
+ .carousel-control-prev{ top: -30px !important }
+  .carousel-control-next{ top: -30px !important }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script>
+
+$('#carouselExample').on('slide.bs.carousel', function (e) {
+
+
+   var $e = $(e.relatedTarget);
+   var idx = $e.index();
+   var itemsPerSlide = 4;
+   var totalItems = $('.carousel-item').length;
+
+   if (idx >= totalItems-(itemsPerSlide-1)) {
+       var it = itemsPerSlide - (totalItems - idx);
+       for (var i=0; i<it; i++) {
+           // append slides to end
+           if (e.direction=="left") {
+               $('.carousel-item').eq(i).appendTo('.carousel-inner');
+           }
+           else {
+               $('.carousel-item').eq(0).appendTo('.carousel-inner');
+           }
+       }
+   }
+});
+
+
+ $('#carouselExample').carousel({
+               interval: 2000
+       });
+
+
+ $(document).ready(function() {
+/* show lightbox when clicking a thumbnail */
+   $('a.thumb').click(function(event){
+     event.preventDefault();
+     var content = $('.modal-body');
+     content.empty();
+       var title = $(this).attr("title");
+       $('.modal-title').html(title);
+       content.html($(this).html());
+       $(".modal-profile").modal({show:true});
+   });
+
+ });
+    </script>
   </head>
 
   <body>
 		 <div class="container">
 			 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color:#eb2026 !important">
+         <button class="navbar-toggler" type="button" data-toggle="modal" data-target="#categoryNav" style="display:block !important">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
 				 <a class="navbar-brand" href="#">Payz24</a>
 				 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 					 <span class="navbar-toggler-icon"></span>
@@ -37,24 +172,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 					<ul class="navbar-nav mr-auto">
 						 <li class="nav-item active">
-							 <a class="nav-link" href="#">Accept Payments <span class="sr-only">(current)</span></a>
+							 <a class="nav-link" href="#">Wallet <span class="sr-only">(current)</span></a>
 						 </li>
+             <li class="nav-item">
+              <a class="nav-link" href="#"> | <span class="sr-only">(current)</span></a>
+            </li>
 						 <li class="nav-item">
-							 <a class="nav-link" href="#">Food Wallet</a>
+							 <a class="nav-link btn btn-danger btn-sm pull-right" href="#">Login</a>
 						 </li>
-						 <li class="nav-item">
-							 <a class="nav-link" href="#">Track Order</a>
-						 </li>
-						 <li class="nav-item">
-							<a class="nav-link" href="#">Sell on Paytm Mall</a>
-						</li>
-
+             <li class="nav-item">
+              <a class="nav-link btn btn-danger btn-sm" href="#">Signup</a>
+            </li>
 					 </ul>
 				 </div>
 			 </nav>
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" style="margin-top:15px">
-        <a class="navbar-brand" href="#">Utilities</a>
+        <a class="navbar-brand" href="#">Book on Payz24</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
           More
         </button>
@@ -95,9 +229,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </li>
           </ul>
-          <a class="form-inline my-2 my-md-0">
+
+          <!-- <a class="form-inline my-2 my-md-0">
             Paytm Balance Rs 1000
-          </a>
+          </a> -->
         </div>
       </nav>
 
@@ -107,7 +242,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <main role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron" style="height:200px"></div>
+      <div class="jumbotron" style="height:200px;background-color:#d83434"></div>
 
       <div class="container" style="margin-top:-150px">
         <div class="row mb-2">
@@ -154,10 +289,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </main>
 
 		<div class="container">
-     <h3>Book on Paytm</h3>
+     <h3>Mobile Recharge and Bill Payments</h3>
+
 		 <div class="nav-scroller py-1 mb-2">
 			 <div class="nav d-flex justify-content-between">
-				 <a class="p-2 text-muted" href="#">Movie</a>
+          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /></a>
+          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
+          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
+          <a class="p-2 text-muted" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /></a>
+				 <!-- <a class="p-2 text-muted" href="#">Movie</a>
 				 <a class="p-2 text-muted" href="#">Trains</a>
 				 <a class="p-2 text-muted" href="#">Bus</a>
 				 <a class="p-2 text-muted" href="#">Deals</a>
@@ -168,7 +308,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				 <a class="p-2 text-muted" href="#">Cars & Bikes</a>
 				 <a class="p-2 text-muted" href="#">Amusement Parks</a>
 				 <a class="p-2 text-muted" href="#">International Flights</a>
-				 <a class="p-2 text-muted" href="#">Tickets</a>
+				 <a class="p-2 text-muted" href="#">Tickets</a> -->
 			 </div>
 		 </div>
 
@@ -181,6 +321,115 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		 </div>
 
 		</div>
+
+    <div class="container">
+      <hr>
+     <h3>Shop on Payz24</h3>
+     <h5>Category  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">View All >></a> </h5>
+		</div>
+
+    <div class="container">
+
+
+
+ <div class="container-fluid">
+     <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
+         <div class="carousel-inner row w-100 mx-auto" role="listbox">
+             <div class="carousel-item col-md-3  active">
+                <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 1" class="thumb">
+                       <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=1" alt="slide 1">
+
+                     </a>
+                       <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+                <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 3" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=2" alt="slide 2">
+                     </a>
+                     <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+                <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 4" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=3" alt="slide 3">
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+                 <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 5" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=4" alt="slide 4">
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+               <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 6" class="thumb">
+                       <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=5" alt="slide 5">
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+                <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 7" class="thumb">
+                       <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=6" alt="slide 6">
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+             <div class="carousel-item col-md-3 ">
+                <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 8" class="thumb">
+                       <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=7" alt="slide 7">
+
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+              <div class="carousel-item col-md-3  ">
+                 <div class="panel panel-default">
+                   <div class="panel-thumbnail">
+                     <a href="#" title="image 2" class="thumb">
+                      <img class="img-fluid mx-auto d-block" src="//via.placeholder.com/600x400?text=8" alt="slide 8">
+                     </a>
+                      <center><h6>Red Wine 78ml<br>Rs 100/-</h6></center>
+                   </div>
+                 </div>
+             </div>
+         </div>
+         <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+             <span class="sr-only">Previous</span>
+         </a>
+         <a class="carousel-control-next text-faded" href="#carouselExample" role="button" data-slide="next">
+             <span class="carousel-control-next-icon" aria-hidden="true"></span>
+             <span class="sr-only">Next</span>
+         </a>
+     </div>
+ </div>
+
+   </div><!--.container-->
 
 
 	<footer class="container py-5">
@@ -230,12 +479,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
     </footer>
 
+    <!-- The Modal -->
+<div class="modal fade" id="categoryNav">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 col-md-4">
+            <h6>Shop by Category</h6>
+            <ul class="list-group">
+            <li class="list-group-item">Mobile</li>
+            <li class="list-group-item">Gas</li>
+            <li class="list-group-item">Clothing</li>
+            <li class="list-group-item">Watches</li>
+            <li class="list-group-item">Laptops</li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-8">.col-12 .col-md-8</div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
-    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
   </body>
 </html>
