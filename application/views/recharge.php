@@ -223,14 +223,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                <div class="row">
                  <div class="col-12"><br>
-                   <h6>Browse Plans of Vodafone - Delhi NCR</h6><br>
+                   <h6 id="browserPlan">Browse Plans</h6><br>
                  </div>
                  <div class="col-3">
                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Best Offer</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Full Talktime</a>
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">3G/4G Data</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">2G Data</a>
+                    <a class="nav-link active browserPlan" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true" data-plantype="TUP">Best Offer</a>
+                    <a class="nav-link browserPlan" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" data-plantype="FTT">Full Talktime</a>
+                    <a class="nav-link browserPlan" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" data-plantype="3G">3G/4G Data</a>
+                    <a class="nav-link browserPlan" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" data-plantype="2G">2G Data</a>
                     </div>
                  </div>
                  <div class="col-9">
@@ -245,31 +245,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody id="updatePlanOffer">
-                          <tr>
-                            <th>85</th>
-                            <td>7 days</td>
-                            <td>Full Talktime + 5 Night local Vodafone minutes</td>
-                            <td>Rs 85</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+                        <tbody id="updatePlanOffer_TUP">
                         </tbody>
                       </table>
                      </div>
-                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
-                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                       <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="updatePlanOffer_FTT">
+                        </tbody>
+                      </table>
+                     </div>
+                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                       <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="updatePlanOffer_3G">
+                        </tbody>
+                      </table>
+                     </div>
+                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                       <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="updatePlanOffer_2G">
+                        </tbody>
+                      </table>
+                     </div>
                    </div>
                  </div>
                </div>
@@ -373,15 +394,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
     $(document).ready(function(){
       $('#mobileNumber').keyup(function(){
+
          if(this.value.length > 5 || this.value.length == 5){
-           $('#nav-profile-tab').show(function(){ $(this).click();});
-           // $('#nav-profile').addClass('active show').show();   
-           $.post('<?php echo base_url();?>Welcome/getOperatorPlanofferAjax',{'mobileNumber':this.value,'cir' : "",'type':'','max':'','amt':''},function(data,status){
-             $('#updatePlanOffer').html(data).show();
+           // $('#nav-profile').addClass('active show').show();
+           $.post('<?php echo base_url();?>index.php/Welcome/getOperatorPlanofferAjax',{'mobileNumber':this.value,'cir' : "",'type':'TUP','max':'','amt':''},function(data,status){
+             $('#nav-profile-tab').show(function(){ $(this).click();});
+             $('#updatePlanOffer_TUP').html(data).show();  
              console.log(data);
            })
         }
       });
+      $('.browserPlan').click(function(){
+            var mobileNumber = $('#mobileNumber').val();
+            var type         = $(this).data('plantype');
+           $.post('<?php echo base_url();?>index.php/Welcome/getOperatorPlanofferAjax',{'mobileNumber':mobileNumber,'cir' : "",'type':type,'max':'','amt':''},function(data,status){
+             $('#nav-profile-tab').show(function(){ $(this).click();});
+             $('#updatePlanOffer_'+type).html(data).show();
+             console.log(data);
+           })
+        })
     });
     </script>
   </body>

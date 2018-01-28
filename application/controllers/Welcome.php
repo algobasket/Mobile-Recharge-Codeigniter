@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
+  protected $joloUserId = "ram0438";
+  protected $joloApiKey = "228535506280853";
+
   function __construct(){
 		parent::__construct();
 		$this->load->helper('form');
@@ -73,7 +76,7 @@ class Welcome extends CI_Controller {
 				'AIRCEL' => 1,
 				'BSNL' => 3,
 				'VODAFONE' => 22,
-				'TATA_DOCOMO_GSM' => 17,
+				'TATA_DOCOMO_GSM' => 17, 
 				'TATA_DOCOMO_CDMA' => 18,
 				'RELIANCE_GSM' => 13,
 				'RELIANCE CDMA' => 12,
@@ -123,7 +126,7 @@ class Welcome extends CI_Controller {
      echo"No offer details available for this category";
      }
 	}
-  public function getOperatorAndCircle($mobileNumber){
+  public function getOperatorNameAndCircleName($mobileNumber){
     $ch = curl_init();
     $timeout = 30; // set to zero for no timeout
     $myurl = "https://api.datayuge.com/v1/lookup/" .$mobileNumber;
@@ -136,14 +139,34 @@ class Welcome extends CI_Controller {
     curl_close($ch);
     return $jsonxx;
   }
-  public function getOperatorPlanofferAjax(){
-    $api = $this->getOperatorAndCircle($this->input->post('mobileNumber'));
-    $operator = $api->operator;
-    $circle = $api->circle;
-    print_r($api);
+
+  public function getOperatorIdAndCircleId($mobileNumber){
     $ch = curl_init();
     $timeout = 30; // set to zero for no timeout
-    $myurl = "https://joloapi.com/api/findplan.php?userid=demo&key=000000&opt=28&cir=1&typ=TUP&max=&amt=";
+    $myurl = "https://joloapi.com/api/findoperator.php?userid=".
+             $this->joloUserId."&key=".$this->joloApiKey."&mob=".$mobileNumber."&type=json";
+    curl_setopt ($ch, CURLOPT_URL, $myurl);
+    curl_setopt ($ch, CURLOPT_HEADER, 0);
+    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $jsonxx = curl_exec($ch);
+    $curl_error = curl_errno($ch);
+    curl_close($ch);
+    return $jsonxx;
+  }
+
+  public function getOperatorPlanofferAjax(){
+    // $api = $this->getOperatorNameAndCircleName($this->input->post('mobileNumber'));
+    // $operator = $api->operator;
+    // $circle = $api->circle;
+    $api = $this->getOperatorIdAndCircleId($this->input->post('mobileNumber'));
+    $api = json_decode($api,true);
+    $operatorId = $api['operator_code'];
+    $circleId   = $api['circle_code'];
+    $ch = curl_init();
+    $timeout = 30; // set to zero for no timeout
+    $myurl = "https://joloapi.com/api/findplan.php?userid=".$this->joloUserId."&key=".$this->joloApiKey.
+             "&opt=".$operatorId."&cir=".$circleId."&typ=".$this->input->post('type')."&max=&amt=";
     curl_setopt ($ch, CURLOPT_URL, $myurl);
     curl_setopt ($ch, CURLOPT_HEADER, 0);
     curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -152,12 +175,13 @@ class Welcome extends CI_Controller {
     $curl_error = curl_errno($ch);
     curl_close($ch);
     $someArray = json_decode($jsonxx, true);
+    //print_r($someArray);die;
     if (count($someArray) > 0) {
       foreach ($someArray as $key => $value) {
-       echo " <tr><td>" .$value["Validity"]. "</td> <td>" .$value["Amount"] . "</td> <td>" .$value["Detail"]. "</td> </tr>";
+       echo " <tr><td>" .$value["Amount"] . "</td> <td>" .$value["Validity"]. "</td> <td>" .$value["Detail"]. "</td><td>" .$value["Amount"] . "</td>  </tr>";
        }
      }else{
-     echo"No offer details available for this category";
+      echo"No offer details available for this category";
      }
 	}
 
