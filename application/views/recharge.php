@@ -60,44 +60,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample09">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /></a>
-            </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /></a>
-            </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /></a>
-            </li>
-						<li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" /></a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown09">
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
-                  <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
-              </div>
-            </li>
-          </ul>
-          <a class="form-inline my-2 my-md-0">
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/movies/movies-48x48.png" /><br>Movies</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Train</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/hotel/hotel-48x48.png" /><br>Hotel</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/flight/flight-48x48.png" /><br>Flight</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/datacard/datacard-48x48.png" /><br>Datacard</a>
+
+          <!-- <a class="form-inline my-2 my-md-0">
             Paytm Balance Rs 1000
-          </a>
+          </a> -->
         </div>
       </nav>
 
@@ -119,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              <a class="text-dark" href="#">Mobile Recharge or Bill Payment</a>
            </h6>
            </strong>
-           <?php echo form_open('welcome');?>
+           <?php echo form_open('welcome/recharge');?>
            <div class="mb-1 text-muted">Prepaid <input type="radio" name="prepaid_postpaid" value="prepaid" onclick="document.getElementById('prepaid_btn').style.display='block';document.getElementById('postpaid_btn').style.display='none'" checked /> &nbsp;&nbsp;&nbsp;&nbsp;Postpaid <input type="radio" name="prepaid_postpaid" value="postpaid" onclick="document.getElementById('prepaid_btn').style.display='none';document.getElementById('postpaid_btn').style.display='block'" /></div>
            <div class="mb-1 text-muted">
 
@@ -132,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
               <div class="mb-3">
                <label for="email">Operator</label>
-               <select name="utilityOperatorId" class="form-control" onchange="document.getElementById('circle_change').style.display='block'">
+               <select name="utilityOperatorId" class="form-control utilityOperatorId" onchange="document.getElementById('circle_change').style.display='block';$('#nav-profile-tab').hide();$('#nav-home-tab').click();">
                    <option>Your Operator</option>
                     <?php foreach($operators as $operatorName => $operatorCode): ?>
                       <option value="<?php echo $operatorCode;?>"><?php echo $operatorName;?></option>
@@ -144,7 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              </div>
              <div class="mb-3" style="display:none" id="circle_change">
               <label for="email">Circle</label>
-              <select name="circleId" class="form-control" >
+              <select name="circleId" class="form-control circleId" >
                   <option>Your Circle</option>
                    <?php foreach($circles as $circleName => $circleCode): ?>
                      <option value="<?php echo $circleCode;?>"><?php echo $circleName;?></option>
@@ -231,7 +204,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a class="nav-link browserPlan" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" data-plantype="FTT">Full Talktime</a>
                     <a class="nav-link browserPlan" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" data-plantype="3G">3G/4G Data</a>
                     <a class="nav-link browserPlan" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" data-plantype="2G">2G Data</a>
-                    </div>
+                    <a class="nav-link browserPlan" id="v-pills-sms-tab" data-toggle="pill" href="#v-pills-sms" role="tab" aria-controls="v-pills-sms" aria-selected="false" data-plantype="SMS">SMS</a>
+                    <a class="nav-link browserPlan" id="v-pills-lsc-tab" data-toggle="pill" href="#v-pills-lsc" role="tab" aria-controls="v-pills-lsc" aria-selected="false" data-plantype="LSC">Local/STD/ISD Call Recharge</a>
+                    <a class="nav-link browserPlan" id="v-pills-rmg-tab" data-toggle="pill" href="#v-pills-rmg" role="tab" aria-controls="v-pills-rmg" aria-selected="false" data-plantype="RMG">Roaming Recharge</a>
+                    
+                  </div> 
                  </div>
                  <div class="col-9">
                    <div class="tab-content" id="v-pills-tabContent">
@@ -245,7 +222,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody id="updatePlanOffer_TUP">
+                        <tbody id="updatePlanOffer_TUP" class="updatePlanOffer"> 
                         </tbody>
                       </table>
                      </div>
@@ -259,7 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody id="updatePlanOffer_FTT">
+                        <tbody id="updatePlanOffer_FTT" class="updatePlanOffer">
                         </tbody>
                       </table>
                      </div>
@@ -273,7 +250,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody id="updatePlanOffer_3G">
+                        <tbody id="updatePlanOffer_3G" class="updatePlanOffer">
                         </tbody>
                       </table>
                      </div>
@@ -287,10 +264,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th scope="col">Price</th>
                           </tr>
                         </thead>
-                        <tbody id="updatePlanOffer_2G">
+                        <tbody id="updatePlanOffer_2G" class="updatePlanOffer">
                         </tbody>
                       </table>
                      </div>
+                     <div class="tab-pane fade" id="v-pills-sms" role="tabpanel" aria-labelledby="v-pills-sms-tab">
+                       <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="updatePlanOffer_SMS" class="updatePlanOffer"> 
+                        </tbody>
+                      </table>
+                     </div>
+                     <div class="tab-pane fade" id="v-pills-lsc" role="tabpanel" aria-labelledby="v-pills-lsc-tab">
+                       <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="updatePlanOffer_LSC" class="updatePlanOffer"> 
+                        </tbody>
+                      </table>
+                     </div>
+                     <div class="tab-pane fade" id="v-pills-rmg" role="tabpanel" aria-labelledby="v-pills-rmg-tab">
+                       <table class="table">
+                        <thead> 
+                          <tr>
+                            <th scope="col">Talktime</th>
+                            <th scope="col">Validity</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Price</th>
+                          </tr>
+                        </thead> 
+                        <tbody id="updatePlanOffer_RMG" class="updatePlanOffer"> 
+                        </tbody>
+                      </table>
+                     </div>
+
+
+
+
+
+
                    </div>
                  </div>
                </div>
@@ -307,31 +332,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </main>
 
 		<div class="container">
+
      <h3>Book on Paytm</h3>
 		 <div class="nav-scroller py-1 mb-2">
-			 <div class="nav d-flex justify-content-between">
-				 <a class="p-2 text-muted" href="#">Movie</a>
-				 <a class="p-2 text-muted" href="#">Trains</a>
-				 <a class="p-2 text-muted" href="#">Bus</a>
-				 <a class="p-2 text-muted" href="#">Deals</a>
-				 <a class="p-2 text-muted" href="#">Flights</a>
-				 <a class="p-2 text-muted" href="#">Hotels</a>
-				 <a class="p-2 text-muted" href="#">Events</a>
-				 <a class="p-2 text-muted" href="#">Gift Cards</a>
-				 <a class="p-2 text-muted" href="#">Cars & Bikes</a>
-				 <a class="p-2 text-muted" href="#">Amusement Parks</a>
-				 <a class="p-2 text-muted" href="#">International Flights</a>
-				 <a class="p-2 text-muted" href="#">Tickets</a>
+			 <div class="row">
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/movies/movies-48x48.png" /><br>Movies</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Train</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/hotel/hotel-48x48.png" /><br>Hotel</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/flight/flight-48x48.png" /><br>Flight</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+         <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/datacard/datacard-48x48.png" /><br>Datacard</a>
+
 			 </div>
 		 </div>
 
-		 <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-			 <div class="col-md-6 px-0">
-				 <h1 class="display-4 font-italic">Get upto <br>300 Rs Cashback</h1>
-				 <p class="lead my-3">Recharge or Pay Bills for Your Family Members</p>
-				 <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">PROMOCODE : GOLD500</a></p>
-			 </div>
-		 </div>
+
 
 		</div>
 
@@ -396,23 +412,70 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $('#mobileNumber').keyup(function(){
 
          if(this.value.length > 5 || this.value.length == 5){
-           // $('#nav-profile').addClass('active show').show();
+
+           $('.updatePlanOffer').html();
            $.post('<?php echo base_url();?>index.php/Welcome/getOperatorPlanofferAjax',{'mobileNumber':this.value,'cir' : "",'type':'TUP','max':'','amt':''},function(data,status){
              $('#nav-profile-tab').show(function(){ $(this).click();});
-             $('#updatePlanOffer_TUP').html(data).show();  
-             console.log(data);
+             let jsonObject = JSON.parse(data);
+             var rows  = jsonObject.plans;   
+             var rows2 = JSON.parse(rows);
+             $('#updatePlanOffer_TUP').html(''); 
+             rows2.forEach(function(i){                        
+                    htmls =  '<tr>';
+                    htmls += '<td>'+i.talktime+'</td><td>'+i.validity+'</td><td>'+i.detail+'</td><td>'+i.amount+'</td>'; 
+                    htmls += '</tr>';
+                    $('#updatePlanOffer_TUP').append(htmls);     
+             });  
+
+             $('.utilityOperatorId option[value="'+jsonObject.operatorId+'"]').prop('selected',true);
+             $('#circle_change').show();    
+             $('.circleId option[value="'+jsonObject.circleId+'"]').prop('selected',true);    
+             //console.log(rows2);    
            })
         }
       });
-      $('.browserPlan').click(function(){
+      $('.browserPlan').click(function(){ 
+           $('.updatePlanOffer').html();
             var mobileNumber = $('#mobileNumber').val();
             var type         = $(this).data('plantype');
            $.post('<?php echo base_url();?>index.php/Welcome/getOperatorPlanofferAjax',{'mobileNumber':mobileNumber,'cir' : "",'type':type,'max':'','amt':''},function(data,status){
              $('#nav-profile-tab').show(function(){ $(this).click();});
-             $('#updatePlanOffer_'+type).html(data).show();
+             let jsonObject = JSON.parse(data);
+             var rows  = jsonObject.plans;   
+             var rows2 = JSON.parse(rows);
+             $('#updatePlanOffer_'+type).html('');  
+             rows2.forEach(function(i){                        
+                    htmls =  '<tr>';
+                    htmls += '<td>'+i.talktime+'</td><td>'+i.validity+'</td><td>'+i.detail+'</td><td>'+i.amount+'</td>'; 
+                    htmls += '</tr>';
+                    $('#updatePlanOffer_'+type).append(htmls);   
+             });   
+
+             //$('#updatePlanOffer_'+type).html(data).show();
              console.log(data);
            })
         })
+        $('.circleId').change(function(){
+          $('.updatePlanOffer').html();
+           $.post('<?php echo base_url();?>index.php/Welcome/getOperatorPlanofferAjax',{'circle_code':$(this).val(),'operator_code' : $('.utilityOperatorId').val()},function(data,status){
+             $('#nav-profile-tab').show(function(){ $(this).click();});
+             let jsonObject = JSON.parse(data);
+             var rows  = jsonObject.plans;   
+             var rows2 = JSON.parse(rows);
+             $('#updatePlanOffer_TUP').html('');  
+             rows2.forEach(function(i){                        
+                    htmls =  '<tr>';
+                    htmls += '<td>'+i.talktime+'</td><td>'+i.validity+'</td><td>'+i.detail+'</td><td>'+i.amount+'</td>'; 
+                    htmls += '</tr>';
+                    $('#updatePlanOffer_TUP').append(htmls);     
+             });    
+
+             $('.utilityOperatorId option[value="'+jsonObject.operatorId+'"]').prop('selected',true);
+             $('#circle_change').show();    
+             $('.circleId option[value="'+jsonObject.circleId+'"]').prop('selected',true);    
+             //console.log(rows2);    
+           })
+        });
     });
     </script>
   </body>

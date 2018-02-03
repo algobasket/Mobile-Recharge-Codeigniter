@@ -101,54 +101,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   .carousel-control-next{ top: -30px !important }
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
-    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-    <script>
-
-$('#carouselExample').on('slide.bs.carousel', function (e) {
-
-
-   var $e = $(e.relatedTarget);
-   var idx = $e.index();
-   var itemsPerSlide = 4;
-   var totalItems = $('.carousel-item').length;
-
-   if (idx >= totalItems-(itemsPerSlide-1)) {
-       var it = itemsPerSlide - (totalItems - idx);
-       for (var i=0; i<it; i++) {
-           // append slides to end
-           if (e.direction=="left") {
-               $('.carousel-item').eq(i).appendTo('.carousel-inner');
-           }
-           else {
-               $('.carousel-item').eq(0).appendTo('.carousel-inner');
-           }
-       }
-   }
-});
-
-
- $('#carouselExample').carousel({
-               interval: 2000
-       });
-
-
- $(document).ready(function() {
-/* show lightbox when clicking a thumbnail */
-   $('a.thumb').click(function(event){
-     event.preventDefault();
-     var content = $('.modal-body');
-     content.empty();
-       var title = $(this).attr("title");
-       $('.modal-title').html(title);
-       content.html($(this).html());
-       $(".modal-profile").modal({show:true});
-   });
-
- });
-    </script>
   </head>
 
   <body>
@@ -193,44 +145,14 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
           More
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample09">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> <small>Movies</small></a>
-
-            </li>
-            <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /><small>Train</small></a>
-
-            </li>
-            <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" /><small>Bus</small></a>
-
-            </li>
-           <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /><small>Hotel</small></a>
-
-            </li>
-           <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" /> <small>Flight</small></a>
-
-            </li>
-            <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" />  <small>Bus</small></a>
-            </li>
-            <li class="nav-item" style="width:80px">
-              <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" />  <small>Datacard</small></a>
-            </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown09">
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
-                <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
-                  <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
-              </div>
-            </li> -->
-          </ul>
+        <div class="collapse navbar-collapse" id="navbarsExample09"> 
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/movies/movies-48x48.png" /><br>Movies</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Train</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/hotel/hotel-48x48.png" /><br>Hotel</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/flight/flight-48x48.png" /><br>Flight</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+          <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/datacard/datacard-48x48.png" /><br>Datacard</a>
 
           <!-- <a class="form-inline my-2 my-md-0">
             Paytm Balance Rs 1000
@@ -294,48 +216,14 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
 		<div class="container">
      <h3>Mobile Recharge and Bill Payments</h3>
      <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" style="margin-top:15px">
-         <div class="collapse navbar-collapse">
-           <ul class="navbar-nav mr-auto">
-             <li class="nav-item active" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/recharge/recharge-48x48.png" /> <small>Mobile</small></a>
-
-             </li>
-             <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/electricity/electricity-48x48.png" /><small>Electricity</small></a>
-
-             </li>
-             <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/landline/landline-48x48.png" /><small>Landline</small></a>
-
-             </li>
-            <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/hotel/hotel-48x48.png" /><small>Hotel</small></a>
-
-             </li>
-            <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/broadband/broadband-48x48.png" /> <small>Broadband</small></a>
-
-             </li>
-            <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/flight/flight-48x48.png" />  <small>Flight</small></a>
-
-             </li>
-             <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/bus/bus-48x48.png" />  <small>Bus</small></a>
-             </li>
-             <li class="nav-item" style="width:80px">
-               <a class="nav-link" href="#"><img src="../../assets/t4jIcons/datacard/datacard-48x48.png" />  <small>Datacard</small></a>
-             </li>
-             <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-               <div class="dropdown-menu" aria-labelledby="dropdown09">
-                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/gas/gas-48x48.png" /> Gas</a>
-                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/movies/movies-48x48.png" /> Movies</a>
-                 <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/creditcard/creditcard-48x48.png" /> Credit Card</a>
-                   <a class="dropdown-item" href="#"><img src="../../assets/t4jIcons/dth/dth-48x48.png" /> DTH</a>
-               </div>
-             </li>
-           </ul>
+         <div class="row">
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/movies/movies-48x48.png" /><br>Movies</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Train</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/hotel/hotel-48x48.png" /><br>Hotel</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/flight/flight-48x48.png" /><br>Flight</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/bus/bus-48x48.png" /><br>Bus</a>
+           <a class="nav-link" href="#" style="float:left"><img src="<?php echo base_url();?>assets/t4jIcons/datacard/datacard-48x48.png" /><br>Datacard</a>
 
            <!-- <a class="form-inline my-2 my-md-0">
              Paytm Balance Rs 1000
@@ -551,5 +439,53 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+        <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+        <script>
+
+    $('#carouselExample').on('slide.bs.carousel', function (e) {
+
+
+       var $e = $(e.relatedTarget);
+       var idx = $e.index();
+       var itemsPerSlide = 4;
+       var totalItems = $('.carousel-item').length;
+
+       if (idx >= totalItems-(itemsPerSlide-1)) {
+           var it = itemsPerSlide - (totalItems - idx);
+           for (var i=0; i<it; i++) {
+               // append slides to end
+               if (e.direction=="left") {
+                   $('.carousel-item').eq(i).appendTo('.carousel-inner');
+               }
+               else {
+                   $('.carousel-item').eq(0).appendTo('.carousel-inner');
+               }
+           }
+       }
+    });
+
+
+     $('#carouselExample').carousel({
+                   interval: 2000
+           });
+
+
+     $(document).ready(function() {
+    /* show lightbox when clicking a thumbnail */
+       $('a.thumb').click(function(event){
+         event.preventDefault();
+         var content = $('.modal-body');
+         content.empty();
+           var title = $(this).attr("title");
+           $('.modal-title').html(title);
+           content.html($(this).html());
+           $(".modal-profile").modal({show:true});
+       });
+
+     });
+        </script>
   </body>
 </html>

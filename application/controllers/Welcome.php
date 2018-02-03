@@ -13,7 +13,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		if($this->input->post('submit_recharge')){
+		if($this->input->post('submit_recharge_prepaid')){
         $output = $this->rechargeApi(
 					$rechargeNumber    = $this->input->post('rechargeNumber'),
 					$rechargeAmount    = $this->input->post('rechargeAmount'),
@@ -28,7 +28,7 @@ class Welcome extends CI_Controller {
 
 	public function recharge()
 	{
-		if($this->input->post('submit_recharge')){
+		if($this->input->post('submit_recharge')){ 
 				$output = $this->rechargeApi(
 				 $rechargeNumber    = $this->input->post('rechargeNumber'),
 				 $rechargeAmount    = $this->input->post('rechargeAmount'),
@@ -43,17 +43,30 @@ class Welcome extends CI_Controller {
 	}
 
   public function rechargeApi($rechargeNumber,$rechargeAmount,$utilityOperatorId,$remark){
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL,"http://travexsoftsol.com/projects/payz24/rest/rechargeapi");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,
-							 "rechargeNumber=".$rechargeNumber."&rechargeAmount=".$rechargeAmount."&utilityOperatorId=".$utilityOperatorId."&remarks=".$remark);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$server_output = curl_exec ($ch);
-		curl_close ($ch);
-		// further processing ....
-		print_r($server_output);
-		if ($server_output == "OK") { echo "success" ;} else { echo "failed" ;};
+    $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL,"http://travexsoftsol.com/projects/payz24/rest/rechargeapi");
+      curl_setopt($ch, CURLOPT_POST, 1);
+      // curl_setopt($ch, CURLOPT_POSTFIELDS,
+      //             "rechargeNumber=".$rechargeNumber. 
+      //             "&rechargeAmount=".$rechargeAmount. 
+      //             "&utilityOperatorId=".$utilityOperatorId."&remarks=".$remark);
+
+      // in real life you should use something like:
+       curl_setopt($ch, CURLOPT_POSTFIELDS, 
+               http_build_query(array(
+                 'rechargeNumber'    => $rechargeNumber,
+                 'rechargeAmount'    => $rechargeAmount, 
+                 'utilityOperatorId' => $utilityOperatorId,
+                 'remarks'           => $remark
+                )));
+
+      // receive server response ...
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      $server_output = curl_exec ($ch);
+
+      curl_close ($ch);
+      echo $server_output;
   }
 
 	public function rechargePlans($circleid,$operatorid,$type){
@@ -76,7 +89,7 @@ class Welcome extends CI_Controller {
 				'AIRCEL' => 1,
 				'BSNL' => 3,
 				'VODAFONE' => 22,
-				'TATA_DOCOMO_GSM' => 17, 
+				'TATA_DOCOMO_GSM' => 17,
 				'TATA_DOCOMO_CDMA' => 18,
 				'RELIANCE_GSM' => 13,
 				'RELIANCE CDMA' => 12,
@@ -159,29 +172,53 @@ class Welcome extends CI_Controller {
     // $api = $this->getOperatorNameAndCircleName($this->input->post('mobileNumber'));
     // $operator = $api->operator;
     // $circle = $api->circle;
-    $api = $this->getOperatorIdAndCircleId($this->input->post('mobileNumber'));
-    $api = json_decode($api,true);
-    $operatorId = $api['operator_code'];
-    $circleId   = $api['circle_code'];
+    if($this->input->post('mobileNumber')){
+      $api = $this->getOperatorIdAndCircleId($this->input->post('mobileNumber'));
+      $api = json_decode($api,true);
+      $operatorId = $api['operator_code'];
+      $circleId   = $api['circle_code'];
+    }else{  
+      $operatorId = $this->input->post('operator_code');
+      $circleId   = $this->input->post('circle_code');
+    }
+   
+    
     $ch = curl_init();
     $timeout = 30; // set to zero for no timeout
     $myurl = "https://joloapi.com/api/findplan.php?userid=".$this->joloUserId."&key=".$this->joloApiKey.
              "&opt=".$operatorId."&cir=".$circleId."&typ=".$this->input->post('type')."&max=&amt=";
-    curl_setopt ($ch, CURLOPT_URL, $myurl);
-    curl_setopt ($ch, CURLOPT_HEADER, 0);
-    curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt ($ch,CURLOPT_URL,$myurl);
+    curl_setopt ($ch,CURLOPT_HEADER,0);
+    curl_setopt ($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt ($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
     $jsonxx = curl_exec($ch);
     $curl_error = curl_errno($ch);
-    curl_close($ch);
-    $someArray = json_decode($jsonxx, true);
+    curl_close($ch); 
+    $someArray = json_decode($jsonxx,true);
     //print_r($someArray);die;
-    if (count($someArray) > 0) {
-      foreach ($someArray as $key => $value) {
-       echo " <tr><td>" .$value["Amount"] . "</td> <td>" .$value["Validity"]. "</td> <td>" .$value["Detail"]. "</td><td>" .$value["Amount"] . "</td>  </tr>";
-       }
+    if (count($someArray) > 0) { 
+      foreach ($someArray as $key => $value) { 
+       //$rows .= $value["Amount"] . "</td> <td>" .$value["Validity"]. "</td> <td>" .$value["Detail"]. "</td><td>" .$value["Amount"] . "</td>  </tr>";
+       list($topup,$talktime) = explode('Topup',$value["Detail"]);
+       $rows[] = array(
+          'talktime' => $talktime,  
+          'validity' => $value["Validity"], 
+          'detail'   => $value["Detail"], 
+          'amount'   => $value["Amount"],  
+        );
+      } 
+       print_r(json_encode(array(
+         'plans'      => json_encode($rows), 
+         'operatorId' => $operatorId,
+         'circleId'   => $circleId
+       )));
      }else{
-      echo"No offer details available for this category";
+       print_r(json_encode(array(
+         'plans'      => "No offer details available for this category",
+         'operatorId' => $operatorId,
+         'circleId'   => $circleId
+       )));
+
      }
 	}
 
